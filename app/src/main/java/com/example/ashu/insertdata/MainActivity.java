@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -60,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
         protected String doInBackground(String... strings) {
 
 
-            String regUrl="http://127.0.0.1/fkc/register.php",method=strings[0];
+            String regUrl="http://192.100.2.3/fkc/register.php",method=strings[0];
             if(method.equals("register")){
 
                 String rollNo,name,branch,shift;
@@ -71,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
 
                 try {
                     URL url=new URL(regUrl);
+                    Log.i("Insert Data" +" ","...."+url);
                     HttpURLConnection httpURLConnection=(HttpURLConnection)url.openConnection();
                     httpURLConnection.setRequestMethod("POST");
                     httpURLConnection.setDoOutput(true);
@@ -81,6 +83,8 @@ public class MainActivity extends AppCompatActivity {
                                  URLEncoder.encode("name","UTF-8")+"="+URLEncoder.encode(name,"UTF-8")+"&"+
                                  URLEncoder.encode("branch","UTF-8")+"="+URLEncoder.encode(branch,"UTF-8")+"&"+
                                  URLEncoder.encode("shift","UTF-8")+"="+URLEncoder.encode(shift,"UTF-8");
+
+                    Log.i("Insert Data" +" ","...Data..."+data);
 
                     bufferedWriter.write(data);
                     bufferedWriter.flush();
@@ -93,6 +97,7 @@ public class MainActivity extends AppCompatActivity {
 
 
                 } catch (MalformedURLException e) {
+                    Log.i("Exception Called",""+e);
                     e.printStackTrace();
                 } catch (IOException e) {
                     e.printStackTrace();
